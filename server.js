@@ -23,7 +23,9 @@ const express = require('express');
 const session = require('express-session');
 const path = require("path");
 const bodyParser = require("body-parser");
-const dbConnection = require("./models");
+const passport = require('passport');
+
+// const dbConnection = require("./models");
 
 ///////////////////////
 // configure Express
@@ -94,10 +96,10 @@ app.use('/', function (req, res, next) {
 ////////////////////////////////
 //auth required or redirect
 ////////////////////////////////
-app.use( (req, res, next) => {
-  console.log('req.session', req.session);
-  return next();
-});
+// app.use( (req, res, next) => {
+//   console.log('req.session', req.session);
+//   return next();
+// });
 
 //  app.use('/api', function(req, res, next) {
 //   if ( !req.session.user ) {
@@ -106,6 +108,12 @@ app.use( (req, res, next) => {
 //     next();
 //   }
 // });
+
+// Passport middleware
+app.use(passport.initialize());
+
+// Passport Config
+require('./config/passport')(passport);
 
 ////////////////////////////////////////////////////////
 // Import routes and give the server access to them.

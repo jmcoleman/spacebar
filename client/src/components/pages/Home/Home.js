@@ -19,39 +19,39 @@ class Home extends Component {
             <div className="d-flex justify-content-around mw-100 mh-90">
               <UserProfile />
 
-{/* updated */}
-<div className="ml-4">
-  <ul className="list-group">
-    <li className="list-group-item border-0" style={{background: 'transparent'}}>
-      <div className="mx-4 clearfix">
-        <h5>WHAT'S TRENDING</h5>
-        <img src="https://tse3.mm.bing.net/th?id=OIP.m2mhfs_-d653oZYi0VO4vgHaEK&pid=15.1&P=0&w=200&h=100" alt="" className="img-responsive float-left mr-3"/>
-        <p className="text-left">
-          Check out the headlines and see what's trending.
-        </p>
-      </div>
-    </li>
-    <li className="list-group-item border-0" style={{background: 'transparent'}}>
-      <div className="mx-4 clearfix">
-        <h5>WHO'S ONLINE</h5>
-        <img src="https://tse4.mm.bing.net/th?id=OIP.yDVWwsoGBF4akjL9Xa-QSwHaD_&pid=15.1&P=0&w=200&h=100" alt="" className="img-responsive float-left mr-3"/>
-        <p className="text-left">
-          Chat with your friends and see who's online!
-        </p>
-      </div>
-    </li>
-    <li className="list-group-item border-0" style={{background: 'transparent'}}>
-      <div className="mx-4 clearfix">
-        <h5>WHAT'S UP NEXT</h5>
-        <img src="https://tse1.mm.bing.net/th?id=OIP.wbETZnPGF5LKfo1ZswRCwwHaHa&pid=15.1&P=0&w=200&h=100" alt="" className="img-responsive float-left mr-3"/>
-        <p className="text-left">
-          Coming Soon -- monthly feature updates!  Be on the lookout for chat typing indicators, automated clear for chat room messages, reset password notifications, add and delete article comments, enhanced blogging, site personalization and more!
-        </p>
-      </div>
-    </li>
+              {/* updated */}
+              <div className="ml-4">
+                <ul className="list-group">
+                  <li className="list-group-item border-0" style={{background: 'transparent'}}>
+                    <div className="mx-4 clearfix">
+                      <h5>WHAT'S TRENDING</h5>
+                      <img src="https://tse3.mm.bing.net/th?id=OIP.m2mhfs_-d653oZYi0VO4vgHaEK&pid=15.1&P=0&w=200&h=100" alt="" className="img-responsive float-left mr-3"/>
+                      <p className="text-left">
+                        Check out the headlines and see what's trending.
+                      </p>
+                    </div>
+                  </li>
+                  <li className="list-group-item border-0" style={{background: 'transparent'}}>
+                    <div className="mx-4 clearfix">
+                      <h5>WHO'S ONLINE</h5>
+                      <img src="https://tse4.mm.bing.net/th?id=OIP.yDVWwsoGBF4akjL9Xa-QSwHaD_&pid=15.1&P=0&w=200&h=100" alt="" className="img-responsive float-left mr-3"/>
+                      <p className="text-left">
+                        Chat with your friends and see who's online!
+                      </p>
+                    </div>
+                  </li>
+                  <li className="list-group-item border-0" style={{background: 'transparent'}}>
+                    <div className="mx-4 clearfix">
+                      <h5>WHAT'S UP NEXT</h5>
+                      <img src="https://tse1.mm.bing.net/th?id=OIP.wbETZnPGF5LKfo1ZswRCwwHaHa&pid=15.1&P=0&w=200&h=100" alt="" className="img-responsive float-left mr-3"/>
+                      <p className="text-left">
+                        Coming Soon -- monthly feature updates!  Be on the lookout for chat typing indicators, automated clear for chat room messages, reset password notifications, add and delete article comments, enhanced blogging, site personalization and more!
+                      </p>
+                    </div>
+                  </li>
 
-  </ul>
-</div>
+                </ul>
+              </div>
 
             </div>
           </div>

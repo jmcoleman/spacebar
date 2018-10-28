@@ -15,6 +15,7 @@ class Navigation extends Component {
     render() {
         // user
         const { isAuthenticated } = this.props.auth;
+        const { email: auth_email } = this.props.auth.user;
         const { branding } = this.props;
 
         const authLinks = (
@@ -25,6 +26,14 @@ class Navigation extends Component {
                 >
                     <Link to="/" className="nav-link app-color-white">
                         <i className="fas fa-home" /> Home
+                    </Link>
+                </li>
+
+                <li 
+                    className="nav-item"
+                >
+                    <Link to={`/api/users/${auth_email}`} className="nav-link app-color-white">
+                        <i className="fas fa-user" /> Profile
                     </Link>
                 </li>
 

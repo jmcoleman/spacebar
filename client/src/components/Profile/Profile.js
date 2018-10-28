@@ -8,7 +8,7 @@ var user = {
     gender: "Female",
     birthday: "April 3, 1990",
     location: "Los Angeles, CA",
-    photo: "http://style.anu.edu.au/_anu/4/images/placeholders/person_8x10.png",
+    photo: "https://style.anu.edu.au/_anu/4/images/placeholders/person_8x10.png",
     bio: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat fugit quia pariatur est saepe necessitatibus, quibusdam reiciendis ratione voluptate atque in qui provident rem repellat soluta. Blanditiis repellat velit eligendi."
   }
 }

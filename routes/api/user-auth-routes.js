@@ -1,50 +1,64 @@
+// authentication
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
-const validateRegisterInput = require('../../../validation/register');
-const validateLoginInput = require('../../../validation/login');
 
-// Requiring our models
-const db = require("../../../models");
+// validations
+const validateRegisterInput = require('../../validation/register');
+const validateLoginInput = require('../../validation/login');
+
+// models
+const db = require("../../models");
+
+// gravatar
+const gravatar = require('gravatar');
+const keys = require('../../config/keys');
 
 module.exports = function(router) {
 
+    // @route   POST /register
+    // @desc    Register a user
+    // @access  Public
     router.post('/register', function (req, res) {
-
         const { errors, isValid } = validateRegisterInput(req.body);
 
+        // check validation
         if (!isValid) {
             return res.status(400).json(errors);
         }
+
         db.User.findOne({
             email: req.body.email
         }).then(user => {
             if (user) {
-                return res.status(400).json({
-                    email: 'Email already exists'
-                });
-            }
+                errors.email = 'User already exists with this email.';
+                return res.status(400).json(errors);
+            } 
+        
+            // get the users gravatar
+            const avatar = gravatar.url(req.body.email, {
+                s: '200',   // size
+                r: 'pg',    // rating
+                d: 'mm'     // default (no profile picture)
+            })
+
+            const newUser = new db.User({
+                name: req.body.name,
+                email: req.body.email,
+                avatar: avatar,
+                password: req.body.password
+            });
 
             bcrypt.genSalt(10, (err, salt) => {
                 if (err) console.error('There was an error', err);
                 else {
-
-                    newUser = new db.User({
-                        name: req.body.name,
-                        email: req.body.email,
-                        password: req.body.password
-                    });
-
                     bcrypt.hash(newUser.password, salt, (err, hash) => {
-                        if (err) console.error('There was an error', err);
-                        else {
-                            newUser.password = hash;
-                            newUser
-                                .save()
-                                .then(user => {
-                                    res.json(user)
-                                });
-                        }
+                        if (err) throw err;
+                        newUser.password = hash;
+                        newUser
+                            .save()
+                            .then(user =>  res.json(user))
+                            .catch(err => console.log(err));
                     });
                 }
             });
@@ -52,10 +66,11 @@ module.exports = function(router) {
         });
     });
 
+    
+    // @route   POST /login
+    // @desc    Login a user
+    // @access  Public
     router.post('/login', (req, res) => {
-
-        const payload = req.body;
-        
         const { errors, isValid } = validateLoginInput(req.body);
 
         if (!isValid) {
@@ -71,10 +86,15 @@ module.exports = function(router) {
                     errors.email = 'User not found'
                     return res.status(404).json(errors);
                 }
+
+                // check password
                 bcrypt.compare(password, user.password)
                     .then(isMatch => {
                         if (isMatch) {
-                            jwt.sign(payload, 'secret', {
+                            // user matched
+                            const payload = { id: user.id, name: user.name, avatar: user.avatar };   // jwt payload
+
+                            jwt.sign(payload, keys.secretOrKey, {
                                 expiresIn: 3600
                             }, (err, token) => {
                                 if (err) console.error('There is some error in token', err);
@@ -94,6 +114,9 @@ module.exports = function(router) {
             });
     });
 
+    // @route   GET api/users/me
+    // @desc    Return current user
+    // @access  Private
     router.get('/me', passport.authenticate('jwt', { session: false }), (req, res) => {
         return res.json({
             id: req.user.id,
@@ -101,7 +124,10 @@ module.exports = function(router) {
             email: req.user.email
         });
     });
-
+    
+    // @route   GET /logout
+    // @desc    Logout the user
+    // @access  Private ??
     router.get('/logout', function(req, res) {
         req.logout();
         res.redirect('/');

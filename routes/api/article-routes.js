@@ -5,8 +5,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Requiring our models
-const db = require("./../../../models");
-let routeCalled = 0;
+const db = require("../../models");
 
 /////////////////
 // Routes
@@ -82,7 +81,7 @@ module.exports = function(app) {
       populate('comments'). 
       exec(function (err, dbResult) {
         if (err) return handleError(err);
-        console.log(dbResult);
+        // console.log(dbResult);
      
         res.send(dbResult);
       });

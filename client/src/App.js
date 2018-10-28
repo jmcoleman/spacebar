@@ -17,11 +17,12 @@ import Register from './components/pages/Register';
 
 //other tests
 import EditArticle from './components/articles/EditArticle';
+import EditUser from './components/users/EditUser';
 
 // pages
 import About from './components/pages/About';
 import Home from './components/pages/Home';
-// import Content from './components/pages/Content';
+import Content from './components/pages/Content';
 import NotFound from './components/pages/NotFound';
 
 // Manage App State
@@ -87,6 +88,8 @@ class App extends Component {
                 <Route exact path='/logout' component={Login} />
                 <Route exact path='/register' component={Register} />
                 <Route exact path="/about" component={About} />
+                <Route exact path="/api/users/edit/:id" component={EditUser} />
+                <Route exact path="/api/users" component={Content} />
                 <Route exact path="/api/articles/edit/:id" component={EditArticle} />
                 <Route exact path='/api/articles' component={Home} />
                 <Route component={NotFound} />

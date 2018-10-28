@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 
-import Wrapper from "../../layout/Wrapper";
-import Articles from '../../articles/Articles';
+// import Wrapper from "../../layout/Wrapper";
+// import Articles from '../../articles/Articles';
+
+import Users from '../../users/Users';
 
 import "./Content.css";
 
@@ -11,9 +13,14 @@ class Content extends Component {
     return (
       <section className="content-section">
         CONTENT PAGE
-        <Wrapper>
+        {/* <Wrapper>
           <Articles></Articles>
-        </Wrapper>
+        </Wrapper> */}
+
+        {/* Users */}
+        <div id="userlist-section" className="">
+          <Users />
+        </div>
       </section>
     )
   }

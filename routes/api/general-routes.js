@@ -6,7 +6,7 @@
 
 const cheerio = require("cheerio");
 const request = require("request");
-const db = require("./../../../models");
+const db = require("../../models");
 
 const SMASHING_MAGAZINE_URL = "https://www.smashingmagazine.com";
 
@@ -97,14 +97,14 @@ module.exports = function(app) {
 
     // iterate thru each article, see if it exists in MongoDB and create it if not
     articleList.forEach((item, index) => {
-      console.log("Finding: " + item.title);
+      // console.log("Finding: " + item.title);
 
       db.Article.find({title: item.title.trim()})
                 .then(function(dbResult) { 
                   if (dbResult.length > 0) {
-                    console.log(`FOUND: Title '${item.title.trim()}'`); 
+                    // console.log(`FOUND: Title '${item.title.trim()}'`); 
                   } else { 
-                    console.log(`NOT FOUND: Title '${item.title.trim()}'`); 
+                    // console.log(`NOT FOUND: Title '${item.title.trim()}'`); 
 
                     ///////////////////////////////////////////////
                     // push to Mongo DB -- we didn't find it

@@ -8,6 +8,16 @@ export const DELETE_ARTICLE = 'DELETE_ARTICLE';
 
 export const SCRAPE_ARTICLES = 'SCRAPE_ARTICLES';
 
-// user actions
-export const GET_ERRORS = 'GET_ERRORS';
+// auth actions
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+
+// user actions
+export const GET_USERS = 'GET_USERS';
+export const GET_USER = 'GET_USER';
+
+export const ADD_USER = 'ADD_USER';
+export const UPDATE_USER = 'UPDATE_USER';
+export const DELETE_USER = 'DELETE_USER';
+
+// error actions
+export const GET_ERRORS = 'GET_ERRORS';
