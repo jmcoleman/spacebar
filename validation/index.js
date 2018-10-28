@@ -3,6 +3,6 @@ module.exports = {
   validateRegisterInput: require("./validation/register"),
   validateLoginInput: require("./validation/login"),
   validateProfileInput: require("./validation/profile"),
-  validateExperienceInput: require("./validation/experience),
+  validateExperienceInput: require("./validation/experience"),
   validateEducationInput: require("./validation/education")
 };
