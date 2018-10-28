@@ -3,5 +3,6 @@
 module.exports = {
   Article: require("./Article"),
   ArticleComment: require("./ArticleComment"),
-  User: require("./User")
+  User: require("./User"),
+  UserProfile: require("./UserProfile")
 };

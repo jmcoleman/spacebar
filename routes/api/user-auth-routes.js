@@ -131,7 +131,7 @@ module.exports = router => {
   // @access  Private
   //////////////////////////////
   router.get(
-    "/me",
+    "/api/users/me",
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
       return res.json({

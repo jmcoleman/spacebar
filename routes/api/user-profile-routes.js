@@ -6,6 +6,11 @@
 // authentication
 const passport = require("passport");
 
+// validations
+const validateProfileInput = require("../../validation/profile");
+const validateExperienceInput = require("../../validation/experience");
+const validateEducationInput = require("../../validation/education");
+
 // models
 const db = require("../../models");
 
@@ -13,29 +18,75 @@ const db = require("../../models");
 // Routes -- User Profiles
 //////////////////////////////
 module.exports = router => {
-  //////////////////////////////////////
-  // @route   GET /api/profiles/:id
-  // @desc    Retrieve a user profile
+  /////////////////////////////////////////////
+  // @route   GET /api/profile
+  // @desc    Retrieve current user profile
   // @access  Private
-  //////////////////////////////////////
+  /////////////////////////////////////////////
   router.get(
-    "/api/profiles/:id",
+    "/api/profile",
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
       console.log("route: specific user profile");
       // console.log(JSON.stringify(req.body));
 
-      // get user profile
-      db.UserProfile.find({ _id: req.params.id })
-        // populate('comments').
-        .exec(function(err, dbResult) {
-          if (err) return handleError(err);
-          console.log(dbResult);
+      const errors = {};
 
-          res.send(dbResult);
-        });
+      // get user profile
+      db.UserProfile.findOne({ user: req.user.id })
+        .populate("user", ["name", "avatar"])
+        .then(profile => {
+          if (!profile) {
+            errors.noprofile = "No profile for this user";
+            return res.status(404).json(errors);
+          }
+          res.json(profile);
+        })
+        .catch(err => res.status(404).json(err));
     }
   );
+
+  /////////////////////////////////////////
+  // @route   GET /api/profile/handle/:handle
+  // @desc    Get profile by handle
+  // @access  Public
+  /////////////////////////////////////////////
+  router.get("/api/profile/handle/:handle", (req, res) => {
+    const errors = {};
+
+    db.UserProfile.findOne({ handle: req.params.handle })
+      .populate("user", ["name", "avatar"])
+      .then(profile => {
+        if (!profile) {
+          errors.noprofile = "No profile for this user";
+          return res.status(404).json(errors);
+        }
+
+        res.json(profile);
+      })
+      .catch(err => res.status(404).json(err));
+  });
+
+  /////////////////////////////////////////
+  // @route   GET /api/profile/user/:user_id
+  // @desc    Get profile by id
+  // @access  Public
+  /////////////////////////////////////////////
+  router.get("/api/profile/user/:user_id", (req, res) => {
+    const errors = {};
+
+    db.UserProfile.findOne({ user: req.params.user_id })
+      .populate("user", ["name", "avatar"])
+      .then(profile => {
+        if (!profile) {
+          errors.noprofile = "No profile for this user";
+          return res.status(404).json(errors);
+        }
+
+        res.json(profile);
+      })
+      .catch(err => res.status(404).json(err));
+  });
 
   /////////////////////////////////////////
   // @route   GET /api/profiles
@@ -47,17 +98,21 @@ module.exports = router => {
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
       console.log("route: all users");
-      // console.log(JSON.stringify(req.body));
 
       // get all users and associated comments
-      db.User.find({})
+      db.UserProfile.find({})
         .sort({ name: "asc" })
-        // populate('comments').
-        .exec(function(err, dbResult) {
-          if (err) return handleError(err);
-          console.log(dbResult);
+        .populate("user", ["name", "avatar"])
+        .then(profiles => {
+          if (!profiles) {
+            errors.noprofile = "There are no profiles";
+            return res.status(404).json(errors);
+          }
 
-          res.send(dbResult);
+          res.json(profiles);
+        })
+        .catch(err => {
+          res.status(404).json({ profile: "There are no profiles" });
         });
     }
   );
@@ -97,11 +152,11 @@ module.exports = router => {
     }
   );
 
-  /////////////////////////////////////////
+  ////////////////////////////////////////////////
   // @route   POST /api/profiles
-  // @desc    Save new user profile
+  // @desc    Save or update new user profile
   // @access  Private
-  /////////////////////////////////////////
+  ////////////////////////////////////////////////
   router.post(
     "/api/profiles",
     passport.authenticate("jwt", { session: false }),
@@ -109,68 +164,266 @@ module.exports = router => {
       console.log("route: create user profile");
       console.log(JSON.stringify(req.body));
 
-      // save new
-      db.UserProfile.create({
-        name: req.body.name.trim(),
-        gender: req.body.gender.trim(),
-        birthday: req.body.birthday.trim(),
-        location: req.body.location.trim(),
-        photo: req.body.photo.trim(),
-        bio: req.body.bio.trim()
-      })
-        .then(function(savedData) {
-          // If saved successfully, print the new document to the console
-          // console.log(savedData);
+      const { errors, isValid } = validateProfileInput(req.body);
 
-          res.send(savedData);
+      if (!isValid) {
+        // return any errors with 400 status
+        return res.status(400).json(errors);
+      }
+
+      const {
+        handle,
+        company,
+        website,
+        location,
+        bio,
+        gender,
+        birthday,
+        status,
+        githubusername,
+        skills,
+        youtube,
+        twitter,
+        linkedin,
+        facebook,
+        instagram
+      } = req.body;
+
+      // get fields
+      const profileFields = {};
+      profileFields.user = req.user.id; // the logged in user (has name, email and avatar)
+
+      if (handle) profileFields.handle = handle;
+      if (company) profileFields.company = company;
+      if (website) profileFields.hwebsite = website;
+      if (location) profileFields.location = location;
+      if (bio) profileFields.bio = bio;
+      if (gender) profileFields.gender = gender;
+      if (birthday) profileFields.birthday = birthday;
+      if (status) profileFields.status = status;
+      if (githubusername) profileFields.githubusername = githubusername;
+
+      // skils - split into array
+      if (typeof skills !== "undefined") {
+        profileFields.skills = skills.split(",");
+      }
+
+      // social
+      profileFields.social = {};
+      if (youtube) profileFields.social.youtube = youtube;
+      if (twitter) profileFields.social.twitter = twitter;
+      if (linkedin) profileFields.social.linkedin = linkedin;
+      if (facebook) profileFields.social.facebook = facebook;
+      if (instagram) profileFields.social.instagram = instagram;
+
+      db.UserProfile.findOne({ user: req.user.id })
+        .then(profile => {
+          if (profile) {
+            // update
+            db.UserProfile.findOneAndUpdate(
+              { user: req.user.id },
+              { $set: profileFields },
+              { new: true }
+            ).then(profile => res.json(profile));
+          } else {
+            // create
+            // check if handle exists
+            db.UserProfile.findOne({ handle: profileFields.handle }).then(
+              profile => {
+                if (profile) {
+                  errors.handle = "That handle already exists";
+                  res.status(400).json(errors);
+                }
+
+                // save profile
+                new db.UserProfile(profileFields)
+                  .save()
+                  .then(profile => res.json(profile))
+                  .catch(err => console.log(err));
+              }
+            );
+          }
         })
-        .catch(function(err) {
-          // If an error occurs, log the error message
-          console.log(err.message);
-        });
+        .catch(err => console.log(err));
     }
   );
 
   /////////////////////////////////////////
-  // @route   DELETE /api/profiles/:id
-  // @desc    Delete a user profile
+  // @route   DELETE /api/profile
+  // @desc    Delete a user and profile
   // @access  Private
   /////////////////////////////////////////
   router.delete(
-    "/api/profiles/:id",
+    "/api/profile",
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
-      console.log("route: delete a user profile");
-      console.log(JSON.stringify(req.body));
+      console.log("route: delete a user and profile");
 
       // remove the user profile
-      db.UserProfile.findByIdAndRemove({ _id: req.params.id })
-        .then(function(dbResult) {
-          console.log("after the deletion of user profile: " + req.params.id);
-          console.log(dbResult);
+      db.UserProfile.findOneAndRemove({ user: req.user.id }).then(profile => {
+        console.log("after the deletion of user profile: " + req.user.id);
+        console.log(profile);
 
-          // db.UserComment.deleteMany({ _id: { $in: dbResult.comments} }, function(err) {
-          //   if (err) {
-          //     return res.status(500).send(err);
-          //   }
+        db.User.findOneAndRemove({ _id: req.user.id }).then(() =>
+          res.json({ success: true })
+        );
+      });
+    }
+  );
 
-          // create object to send back a message and the id of the document that was removed
-          const response = {
-            message: "User Profile successfully deleted",
-            id: dbResult._id,
-            title: dbResult.title
-            // comments: dbResult.comments
+  /////////////////////////////////////////
+  // @route   POST /api/profile/experience
+  // @desc    add experience for user
+  // @access  Private
+  /////////////////////////////////////////
+  router.post(
+    "/api/profile/experience",
+    passport.authenticate("jwt", { session: false }),
+    (req, res) => {
+      console.log("route: create experience");
+      console.log(JSON.stringify(req.body));
+
+      const { errors, isValid } = validateExperienceInput(req.body);
+
+      if (!isValid) {
+        // return any errors with 400 status
+        return res.status(400).json(errors);
+      }
+
+      const {
+        title,
+        company,
+        location,
+        from,
+        to,
+        current,
+        description
+      } = req.body;
+
+      db.UserProfile.findOne({ user: req.user.id })
+        .then(profile => {
+          const newExperience = {
+            title,
+            company,
+            location,
+            from,
+            to,
+            current,
+            description
           };
 
-          return res.status(200).send(response);
-          // });
+          // add to experiences
+          profile.experience.unshift(newExperience);
 
-          // res.json(dbResult);
+          profile.save().then(profile => res.json(profile));
         })
-        .catch(function(err) {
-          // If an error occurs, log the error message
-          console.log(err.message);
-        });
+        .catch(err => console.log(err));
+    }
+  );
+
+  /////////////////////////////////////////////////////
+  // @route   DELETE /api/profile/experience/:exp_id
+  // @desc    Delete experience from a user profile
+  // @access  Private
+  /////////////////////////////////////////////////////
+  router.delete(
+    "/api/profile/experience/:exp_id",
+    passport.authenticate("jwt", { session: false }),
+    (req, res) => {
+      console.log("route: delete experience from a user profile");
+
+      db.UserProfile.findOne({ user: req.user.id })
+        .then(profile => {
+          // get remove index
+          const removeIndex = profile.experience
+            .map(item => item.id)
+            .indexOf(req.params.exp_id);
+
+          // splice out of array
+          profile.experience.splice(removeIndex, 1);
+
+          // save
+          profile.save().then(profile => res.json(profile));
+        })
+        .catch(err => releaseEvents.status(404).json(err));
+    }
+  );
+
+  /////////////////////////////////////////
+  // @route   POST /api/profile/education
+  // @desc    add education for user
+  // @access  Private
+  /////////////////////////////////////////
+  router.post(
+    "/api/profile/education",
+    passport.authenticate("jwt", { session: false }),
+    (req, res) => {
+      console.log("route: create education");
+      console.log(JSON.stringify(req.body));
+
+      const { errors, isValid } = validateEducationInput(req.body);
+
+      if (!isValid) {
+        // return any errors with 400 status
+        return res.status(400).json(errors);
+      }
+
+      const {
+        school,
+        degree,
+        fieldofstudy,
+        from,
+        to,
+        current,
+        description
+      } = req.body;
+
+      db.UserProfile.findOne({ user: req.user.id })
+        .then(profile => {
+          const newEducation = {
+            school,
+            degree,
+            fieldofstudy,
+            from,
+            to,
+            current,
+            description
+          };
+
+          // add to experiences
+          profile.education.unshift(newEducation);
+
+          profile.save().then(profile => res.json(profile));
+        })
+        .catch(err => console.log(err));
+    }
+  );
+
+  /////////////////////////////////////////////////////
+  // @route   DELETE /api/profile/education/:edu_id
+  // @desc    Delete education from a user profile
+  // @access  Private
+  /////////////////////////////////////////////////////
+  router.delete(
+    "/api/profile/education/:edu_id",
+    passport.authenticate("jwt", { session: false }),
+    (req, res) => {
+      console.log("route: delete education from a user profile");
+
+      db.UserProfile.findOne({ user: req.user.id })
+        .then(profile => {
+          // get remove index
+          const removeIndex = profile.education
+            .map(item => item.id)
+            .indexOf(req.params.edu_id);
+
+          // splice out of array
+          profile.education.splice(removeIndex, 1);
+
+          // save
+          profile.save().then(profile => res.json(profile));
+        })
+        .catch(err => releaseEvents.status(404).json(err));
     }
   );
 };
