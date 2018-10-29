@@ -84,17 +84,20 @@ module.exports = router => {
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
       console.log("route: all articles");
-      // console.log(JSON.stringify(req.body));
 
       // get all articles and associated comments
       db.Article.find({})
         .sort({ date: "desc" })
         .populate("comments")
-        .exec(function(err, dbResult) {
-          if (err) return handleError(err);
-          // console.log(dbResult);
+        .then(dbResult => {
+          if (!dbResult) {
+            return res.status(400).json({ article: "There are no articles" });
+          }
 
-          res.send(dbResult);
+          res.json(dbResult);
+        })
+        .catch(err => {
+          res.status(404).json({ article: "There are no articles" });
         });
     }
   );

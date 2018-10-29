@@ -1,24 +1,32 @@
-import React, { Component } from 'react';
-import TextInputGroup from '../layout/TextInputGroup';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { getUser, updateUser } from '../../actions/userActions';
-import moment from 'moment';
+import React, { Component } from "react";
+import TextInputGroup from "../layout/TextInputGroup";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { getUser, updateUser } from "../../actions/userActions";
+import moment from "moment";
 
 class EditUser extends Component {
   state = {
-    _id: '',
-    name: '',
-    gender: '',
-    birthday: '',
-    location: '',
-    photo: '',
-    bio: '',
+    _id: "",
+    name: "",
+    gender: "",
+    birthday: "",
+    location: "",
+    photo: "",
+    bio: "",
     errors: {}
   };
 
   componentWillReceiveProps(nextProps, nextState) {
-    const { _id, name, gender, birthday, location, photo, bio } = nextProps.user;
+    const {
+      _id,
+      name,
+      gender,
+      birthday,
+      location,
+      photo,
+      bio
+    } = nextProps.user;
     this.setState({
       _id,
       name,
@@ -36,7 +44,6 @@ class EditUser extends Component {
       this.props.getUser(id);
     } else {
       // TODO this.props.auth.email ??  no id avail
-
     }
   }
 
@@ -48,13 +55,13 @@ class EditUser extends Component {
     console.log(this.state);
 
     // Check For Errors
-    if (_id === '') {
-      this.setState({ errors: { _id: '_id is required' } });
+    if (_id === "") {
+      this.setState({ errors: { _id: "_id is required" } });
       return;
     }
 
-    if (name === '') {
-      this.setState({ errors: { name: 'Name is required' } });
+    if (name === "") {
+      this.setState({ errors: { name: "Name is required" } });
       return;
     }
 
@@ -74,26 +81,36 @@ class EditUser extends Component {
 
     // Clear State
     this.setState({
-      _id: '',
-      name: '',
-      gender: '',
-      birthday: '',
-      location: '0001-01-01T00:00:00',
-      photo: '',
-      bio: '',
+      _id: "",
+      name: "",
+      gender: "",
+      birthday: "",
+      location: "0001-01-01T00:00:00",
+      photo: "",
+      bio: "",
       errors: {}
     });
 
-    this.props.history.push('/');
+    // changed from / jmc
+    this.props.history.push("/home");
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
   // return in utc to convert the date from the offset provided to UTC
-  formatDate = (date) => moment.utc(date).format('MM/DD/YYYY');
+  formatDate = date => moment.utc(date).format("MM/DD/YYYY");
 
   render() {
-    const { _id, name, gender, birthday, location, photo, bio, errors } = this.state;
+    const {
+      _id,
+      name,
+      gender,
+      birthday,
+      location,
+      photo,
+      bio,
+      errors
+    } = this.state;
     console.log(_id);
 
     return (
@@ -101,8 +118,8 @@ class EditUser extends Component {
         <div className="card-header display-4">Edit User</div>
         <div className="card-body">
           <form onSubmit={this.onSubmit}>
-          {/* type='hidden' */}
-          {/* <TextInputGroup
+            {/* type='hidden' */}
+            {/* <TextInputGroup
               label="_Id"
               name="_id"
               placeholder="Enter _Id"
@@ -114,7 +131,7 @@ class EditUser extends Component {
               label="Name"
               name="name"
               placeholder="Enter Name"
-              value={name || ''}
+              value={name || ""}
               onChange={this.onChange}
               error={errors.name}
             />
@@ -123,7 +140,7 @@ class EditUser extends Component {
               name="gender"
               type="gender"
               placeholder="Enter Gender"
-              value={gender || ''}
+              value={gender || ""}
               onChange={this.onChange}
               error={errors.gender}
             />
@@ -131,7 +148,7 @@ class EditUser extends Component {
               label="Birthday"
               name="birthday"
               placeholder="Enter Birthday"
-              value={this.formatDate(birthday) || ''}
+              value={this.formatDate(birthday) || ""}
               onChange={this.onChange}
               error={errors.birthday}
             />
@@ -139,7 +156,7 @@ class EditUser extends Component {
               label="Location"
               name="location"
               placeholder="Enter Location"
-              value={location || ''}
+              value={location || ""}
               onChange={this.onChange}
               error={errors.location}
             />
@@ -147,7 +164,7 @@ class EditUser extends Component {
               label="Photo"
               name="photo"
               placeholder="Enter Photo Url"
-              value={photo || ''}
+              value={photo || ""}
               onChange={this.onChange}
               error={errors.photo}
             />
@@ -155,7 +172,7 @@ class EditUser extends Component {
               label="Bio"
               name="bio"
               placeholder="Enter Bio"
-              value={bio || ''}
+              value={bio || ""}
               onChange={this.onChange}
               error={errors.bio}
             />

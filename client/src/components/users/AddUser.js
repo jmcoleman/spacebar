@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import TextInputGroup from '../layout/TextInputGroup';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { addUser } from '../../actions/userActions';
+import React, { Component } from "react";
+import TextInputGroup from "../layout/TextInputGroup";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { addUser } from "../../actions/userActions";
 
 class AddUser extends Component {
   state = {
-    name: '',
-    email: '',
+    name: "",
+    email: "",
     errors: {}
   };
 
@@ -17,13 +17,13 @@ class AddUser extends Component {
     const { name, email } = this.state;
 
     // Check For Errors
-    if (name === '') {
-      this.setState({ errors: { name: 'Name is required' } });
+    if (name === "") {
+      this.setState({ errors: { name: "Name is required" } });
       return;
     }
 
-    if (email === '') {
-      this.setState({ errors: { email: 'Email is required' } });
+    if (email === "") {
+      this.setState({ errors: { email: "Email is required" } });
       return;
     }
 
@@ -41,12 +41,13 @@ class AddUser extends Component {
 
     // Clear State
     this.setState({
-      name: '',
-      email: '',
+      name: "",
+      email: "",
       errors: {}
     });
 
-    this.props.history.push('/');
+    // changed from / jmc
+    this.props.history.push("/home");
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });

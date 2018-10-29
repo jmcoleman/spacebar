@@ -28,7 +28,7 @@ module.exports = router => {
   //////////////////////////////////////
   router.post(
     "/chat/users",
-    passport.authenticate("jwt", { session: false }),
+    // passport.authenticate("jwt", { session: false }),
     (req, res) => {
       const { username } = req.body;
 
@@ -55,7 +55,7 @@ module.exports = router => {
   //////////////////////////////////////
   router.post(
     "/chat/authenticate",
-    passport.authenticate("jwt", { session: false }),
+    // passport.authenticate("jwt", { session: false }),
     (req, res) => {
       const authData = chatkit.authenticate({ userId: req.query.user_id });
       res.status(authData.status).send(authData.body);
