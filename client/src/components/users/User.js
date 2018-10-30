@@ -1,73 +1,77 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { deleteUser } from '../../actions/userActions';
-import moment from 'moment';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { getUser, deleteUser } from "../../actions/userActions";
+import moment from "moment";
 
 class User extends Component {
   state = {
-    showUserInfo: false,
+    // showUserInfo: false,
   };
+
+  componentDidMount() {
+    this.props.getUser();
+  }
 
   onDeleteClick = id => {
     this.props.deleteUser(id);
   };
 
-  handleBtnClick = () => {
-  };
+  handleBtnClick = () => {};
 
   // return in utc to convert the date from the offset provided to UTC
-  formatDate = (date) => moment.utc(date).format('MM/DD/YYYY');
+  formatDate = date => moment.utc(date).format("MM/DD/YYYY");
 
   render() {
-    const { showUserInfo } = this.state;
-    const {_id, name, email, date, gender, birthday, location, photo, bio} = this.props.user;
+    // const { showUserInfo } = this.state;
+    // const { user: auth_user } = this.props.auth;
+    const { user } = this.props.user;
 
     return (
       <div className="card card-body mb-3">
+        <h5 className="text-left">
+          {user.name}
 
-        <h5 className="text-left">{name}
-
-        {/* toggle the user detail */}
-          <i 
-            className="fas fa-caret-down ml-2" 
-            style={{ cursor: 'pointer' }}
-            onClick={() =>
-              this.setState({
-                showUserInfo: !this.state.showUserInfo
-              })
-            }
-          ></i>
+          {/* toggle the user detail */}
+          <i
+            className="fas fa-caret-down ml-2"
+            style={{ cursor: "pointer" }}
+            // onClick={() =>
+            //   this.setState({
+            //     showUserInfo: !this.state.showUserInfo
+            //   })
+            // }
+          />
 
           {/* delete the user from the mongo store */}
-          <i 
-            className="fas fa-times app-color-danger" 
-            style={{cursor: 'pointer', float: 'right'}}
-            onClick={this.onDeleteClick.bind(this, _id)}
-          ></i>
+          <i
+            className="fas fa-times app-color-danger"
+            style={{ cursor: "pointer", float: "right" }}
+            onClick={this.onDeleteClick.bind(this, user.id)}
+          />
 
           {/* link to edit the user */}
-          <Link to={`api/users/edit/${_id}`}>
-            <i 
-              className="fa fa-pencil-alt app-color-primary" 
-              style={{cursor: 'pointer', float: 'right', marginRight: '1rem'}}
-            ></i>
+          <Link to={`api/users/edit/${user.id}`}>
+            <i
+              className="fa fa-pencil-alt app-color-primary"
+              style={{ cursor: "pointer", float: "right", marginRight: "1rem" }}
+            />
           </Link>
         </h5>
 
         {/* TODO style this */}
         <p>
-          {email} 
-          {gender}
+          {user.email}
+          {/* {gender}
           {birthday}
           {location}
-          {photo}
+          {photo} */}
         </p>
 
         {/* <small className="text-left text-muted">By {author}, {this.formatDate(date)}</small> */}
 
-        {showUserInfo ? (
+        {/* {showUserInfo ? (
           <div id="user-detail-section"> 
             <hr></hr>
             <p className="card-text">{bio}</p>
@@ -78,21 +82,24 @@ class User extends Component {
               </p>
             </div>
           </div>
-        ) : null}
-
+        ) : null} */}
       </div>
-
-
     );
   }
 }
 
 User.propTypes = {
   user: PropTypes.object.isRequired,
+  getUser: PropTypes.func.isRequired,
   deleteUser: PropTypes.func.isRequired
 };
 
+const mapStateToProps = state => ({
+  auth: state.auth,
+  user: state.user
+});
+
 export default connect(
-  null,
-  { deleteUser }
+  mapStateToProps,
+  { getUser, deleteUser }
 )(User);

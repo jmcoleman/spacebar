@@ -13,6 +13,10 @@ body {
   /* font-family: 'Ubuntu', sans-serif; */
 }
 
+p {
+  font-size: 1rem;
+}
+
 .site {
   display: flex;
   min-height: 100vh;
@@ -73,6 +77,23 @@ body {
 }
 
 /******************/
+/* Home page      */
+/******************/
+#home-page .vl {
+  border-right: 1px solid lightgrey;
+  /* height: 70vh; */
+  height: 70%;
+  /* position: absolute; */
+  /* left: 25%; */
+  /* margin-left: -3px; */
+  /* top: 20%; */
+}
+
+#home-page * p {
+  font-size: 14px;
+}
+
+/******************/
 /* Landing Page */
 /******************/
 .landing {
@@ -100,6 +121,14 @@ body {
   height: 100%;
 }
 
+#landing-banner-row {
+  margin-top: 70px;
+}
+
+#landing-banner-row p {
+  font-size: 1.75rem;
+}
+
 /******************/
 /* Not Found Page */
 /******************/
@@ -109,19 +138,6 @@ body {
 
 #not-found-page p {
   font-family: "Raleway", sans-serif;
-}
-
-/******************/
-/* Home page      */
-/******************/
-#home-page .vl {
-  border-right: 1px solid lightgrey;
-  /* height: 70vh; */
-  height: 70%;
-  /* position: absolute; */
-  /* left: 25%; */
-  /* margin-left: -3px; */
-  /* top: 20%; */
 }
 
 /*******************/
@@ -295,10 +311,6 @@ a:focus,
   -webkit-box-shadow: none !important;
   -moz-box-shadow: none !important;
   box-shadow: none !important;
-}
-
-p {
-  font-size: 14px;
 }
 
 /**************************/

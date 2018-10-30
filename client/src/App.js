@@ -64,7 +64,7 @@ if (localStorage.jwtToken) {
 //////////////////////////////////////////////
 class App extends Component {
   state = {
-    appName: "Spacebar",
+    appName: "SpaceBar",
     appSubtitle: "Discover what's out there.",
     orgName: "GT Project Team",
     year: new Date().getFullYear()
@@ -86,18 +86,19 @@ class App extends Component {
 
             <div className="site-content app-bg-color-white">
               <Switch className="site-content">
-                {/* TODO remove this one for landing page */}
                 <Route exact path="/" component={Landing} />
                 <Route exact path="/home" component={Home} />
-                <Route exact path="/api/scrape" component={Home} />
+                {/* <Route exact path="/api/scrape" component={Home} /> */}
 
                 <Route exact path="/login" component={Login} />
-                <Route exact path="/logout" component={Login} />
+                {/* <Route exact path="/logout" component={Login} /> */}
                 <Route exact path="/register" component={Register} />
 
+                <Route exact path="/api/profile" component={Content} />
+
                 <Route exact path="/about" component={About} />
-                <Route exact path="/api/users/edit/:id" component={EditUser} />
-                <Route exact path="/api/users" component={Content} />
+                {/* <Route exact path="/api/users/edit/:id" component={EditUser} />
+                <Route exact path="/api/users" component={Content} /> */}
                 <Route
                   exact
                   path="/api/articles/edit/:id"

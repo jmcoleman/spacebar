@@ -123,7 +123,7 @@ class Register extends Component {
               type="submit"
               className="btn app-btn-primary app-btn-bg-white app-btn-border-primary"
             >
-              Register User
+              Sign Up
             </button>
           </div>
         </form>

@@ -24,10 +24,7 @@ class Navigation extends Component {
         </li>
 
         <li className="nav-item">
-          <Link
-            to={`/api/users/${user.email}`}
-            className="nav-link app-color-white"
-          >
+          <Link to={`/api/profile`} className="nav-link app-color-white">
             <i className="fas fa-user" /> Profile
           </Link>
         </li>

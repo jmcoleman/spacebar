@@ -94,7 +94,7 @@ class Login extends Component {
               type="submit"
               className="btn app-btn-primary app-btn-bg-white app-btn-border-primary"
             >
-              Login User
+              Login
             </button>
           </div>
         </form>

@@ -15,23 +15,23 @@ class Landing extends Component {
       <div id="landing-page" className="landing">
         <div className="dark-overlay landing-inner text-light">
           <div className="container">
-            <div className="row">
+            <div id="landing-banner-row" className="row">
               <div className="col-md-12 text-center">
-                <h1 className="display-3 mb-4">Connection Hub</h1>
+                <h1 className="display-3 mb-4">Connector Hub</h1>
                 <p className="lead">
                   {" "}
-                  Discover what's trending, chat, connect, and post with those
-                  you collaborate with most
+                  Discover what's trending, chat, connect, and post <br />
+                  with those you collaborate with most
                 </p>
-                <hr />
+                <hr className="app-bg-color-darkgray" />
                 <Link
                   id="btn-signup"
                   to="/register"
-                  className="btn btn-lg app-btn-bg-primary text-white mr-2"
+                  className="btn btn-lg app-btn-bg-primary text-white mr-2 mt-4"
                 >
                   Sign Up
                 </Link>
-                <Link to="/login" className="btn btn-lg btn-light ml-2">
+                <Link to="/login" className="btn btn-lg btn-light ml-2 mt-4">
                   Login
                 </Link>
               </div>

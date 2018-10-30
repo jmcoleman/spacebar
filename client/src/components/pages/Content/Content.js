@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 // import Wrapper from "../../layout/Wrapper";
 // import Articles from '../../articles/Articles';
 
-import Users from '../../users/Users';
+import User from "../../users/User";
 
 import "./Content.css";
 
 class Content extends Component {
-
   render() {
     return (
       <section className="content-section">
@@ -16,13 +15,12 @@ class Content extends Component {
         {/* <Wrapper>
           <Articles></Articles>
         </Wrapper> */}
-
         {/* Users */}
-        <div id="userlist-section" className="">
-          <Users />
+        <div id="content-div" className="">
+          <User />
         </div>
       </section>
-    )
+    );
   }
 }
 
