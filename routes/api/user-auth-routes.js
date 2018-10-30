@@ -141,18 +141,4 @@ module.exports = router => {
       });
     }
   );
-
-  //////////////////////////////
-  // @route   GET /logout
-  // @desc    Logout the user
-  // @access  Private TODO??
-  //////////////////////////////
-  router.get(
-    "/logout",
-    passport.authenticate("jwt", { session: false }),
-    (req, res) => {
-      req.logout();
-      res.redirect("/");
-    }
-  );
 };

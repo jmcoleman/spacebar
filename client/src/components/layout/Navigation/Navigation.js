@@ -12,9 +12,7 @@ class Navigation extends Component {
   }
 
   render() {
-    // user
-    const { isAuthenticated } = this.props.auth;
-    const { email: auth_email } = this.props.auth.user;
+    const { isAuthenticated, user } = this.props.auth;
     const { branding } = this.props;
 
     const authLinks = (
@@ -27,7 +25,7 @@ class Navigation extends Component {
 
         <li className="nav-item">
           <Link
-            to={`/api/users/${auth_email}`}
+            to={`/api/users/${user.email}`}
             className="nav-link app-color-white"
           >
             <i className="fas fa-user" /> Profile
@@ -38,10 +36,15 @@ class Navigation extends Component {
         {/* <div className="vl ml-2 mr-2 app-color-white"></div> */}
 
         <li onClick={this.onLogoutClick.bind(this)} className="nav-item">
-          <Link to="/login" className="nav-link app-color-white" id="logout">
-            {/* <div className="btn app-btn-primary"> */}
+          <Link to="/" className="nav-link app-color-white" id="logout">
+            {/* <img
+              className="rounded-circle"
+              src={user.avatar}
+              alt={user.name}
+              style={{ width: "30px", marginRight: "5px" }}
+              title="You must have a Gravatar connected to your email to display an image"
+            />{" "} */}
             <i className="fas fa-sign-out-alt" /> Logout
-            {/* </div> */}
           </Link>
         </li>
       </React.Fragment>
@@ -49,20 +52,20 @@ class Navigation extends Component {
 
     const guestLinks = (
       <React.Fragment>
-        <li className="nav-item ml-2">
+        {/* <li className="nav-item ml-2">
           <Link to="/register" className="nav-link app-color-white">
-            {/* <div className="btn app-btn-primary"> */}
-            <i className="fas fa-user-plus" /> Sign-up
-            {/* </div> */}
+            <div className="btn app-btn-primary">
+              <i className="fas fa-user-plus" /> Sign-up
+            </div>
           </Link>
         </li>
         <li className="nav-item ml-2">
           <Link to="/login" className="nav-link app-color-white">
-            {/* <div className="btn app-btn-primary"> */}
-            <i className="fas fa-sign-in-alt" /> Login
-            {/* </div> */}
+            <div className="btn app-btn-primary">
+              <i className="fas fa-sign-in-alt" /> Login
+            </div>
           </Link>
-        </li>
+        </li> */}
 
         {/* vertical separator */}
         {/* <div className="vl ml-2 mr-2 app-color-white"></div> */}
@@ -80,7 +83,7 @@ class Navigation extends Component {
           href="/"
           className="navbar-brand m-0 px-4 py-2 app-color-white"
         >
-          <i className="fas fa-rocket fa-lg mr-2 app-color-white" />
+          <i className="fas fa-rocket fa-lg mr-2 app-color-white" hidden />
           {branding}
         </a>
 

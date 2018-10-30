@@ -12,7 +12,7 @@ class Landing extends Component {
 
   render() {
     return (
-      <div className="landing">
+      <div id="landing-page" className="landing">
         <div className="dark-overlay landing-inner text-light">
           <div className="container">
             <div className="row">
@@ -24,10 +24,14 @@ class Landing extends Component {
                   you collaborate with most
                 </p>
                 <hr />
-                <Link to="/register" className="btn btn-lg btn-info mr-2">
+                <Link
+                  id="btn-signup"
+                  to="/register"
+                  className="btn btn-lg app-btn-bg-primary text-white mr-2"
+                >
                   Sign Up
                 </Link>
-                <Link to="/login" className="btn btn-lg btn-light">
+                <Link to="/login" className="btn btn-lg btn-light ml-2">
                   Login
                 </Link>
               </div>

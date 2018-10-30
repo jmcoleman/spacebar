@@ -19,6 +19,13 @@ export const ADD_USER = "ADD_USER";
 export const UPDATE_USER = "UPDATE_USER";
 export const DELETE_USER = "DELETE_USER";
 
+// user profile action
+export const GET_USER_PROFILE = "GET_USER_PROFILE";
+export const USER_PROFILE_LOADING = "USER_PROFILE_LOADING";
+export const USER_PROFILE_NOT_FOUND = "USER_PROFILE_NOT_FOUND";
+export const CLEAR_CURRENT_USER_PROFILE = "CLEAR_CURRENT_USER_PROFILE";
+export const GET_USER_PROFILES = "GET_USER_PROFILES";
+
 // chat actions
 export const ADD_CHAT_USER = "ADD_CHAT_USER";
 export const GET_CHAT_USER = "GET_CHAT_USER";

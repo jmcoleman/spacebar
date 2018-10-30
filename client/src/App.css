@@ -81,8 +81,10 @@ body {
   background-size: cover;
   background-position: center;
   height: 100vh;
-  margin-top: -24px;
-  margin-bottom: -50px;
+  /* margin-top: -24px; */
+  /* margin-bottom: -50px; */
+  margin-top: -46px;
+  margin-bottom: -46px;
 }
 
 .landing-inner {
@@ -359,4 +361,14 @@ p {
   /* overflow-y: auto; */
   text-overflow: ellipsis;
   /* white-space: nowrap; */
+}
+
+/*****************************/
+/* landing pages buttons     */
+/*****************************/
+#landing-page * #btn-signup:hover {
+  background-color: white;
+  border-color: 1px solid #054a91;
+  color: #054a91 !important;
+  outline: none;
 }

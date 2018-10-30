@@ -153,12 +153,12 @@ module.exports = router => {
   );
 
   ////////////////////////////////////////////////
-  // @route   POST /api/profiles
+  // @route   POST /api/profile
   // @desc    Save or update new user profile
   // @access  Private
   ////////////////////////////////////////////////
   router.post(
-    "/api/profiles",
+    "/api/profile",
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
       console.log("route: create user profile");
