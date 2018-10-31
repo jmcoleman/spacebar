@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../../actions/authActions";
 import "./Navigation.css";
 
+//TODO convert to React components for hamburger to show menu
 class Navigation extends Component {
   onLogoutClick(e) {
     e.preventDefault();
@@ -72,7 +73,8 @@ class Navigation extends Component {
     return (
       <nav
         id="main-nav"
-        className="navbar navbar-expand-sm app-bg-color-black py-0 px-5 app-color-white"
+        // className="navbar navbar-expand-md app-bg-color-black py-0 px-5 app-color-white"
+        className="navbar navbar-custom navbar-expand-md navbar-dark app-bg-color-black"
       >
         {/* branding */}
         <a
@@ -83,9 +85,20 @@ class Navigation extends Component {
           <i className="fas fa-rocket fa-lg mr-2 app-color-white" hidden />
           {branding}
         </a>
+        <button
+          className="navbar-toggler app-border-color-darkgray"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarText"
+          aria-controls="navbarText"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon" />
+        </button>
 
-        <div className="ml-auto">
-          <ul className="navbar-nav mr-auto">
+        <div id="navbarText" className="collapse navbar-collapse">
+          <ul className="navbar-nav ml-auto">
             {isAuthenticated ? authLinks : guestLinks}
 
             <li className="nav-item">

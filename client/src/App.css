@@ -102,10 +102,10 @@ p {
   background-size: cover;
   background-position: center;
   height: 100vh;
-  /* margin-top: -24px; */
-  /* margin-bottom: -50px; */
-  margin-top: -46px;
-  margin-bottom: -46px;
+  /* margin-top: -24px;
+  margin-bottom: -50px; */
+  margin-top: -60px;
+  margin-bottom: -40px;
 }
 
 .landing-inner {
@@ -270,7 +270,7 @@ p {
 }
 .app-border-color-darkgray {
   border: 1px solid;
-  border-color: #595757;
+  border-color: #595757 !important;
 }
 
 /****************/
