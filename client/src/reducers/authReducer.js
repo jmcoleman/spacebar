@@ -15,6 +15,7 @@ export default function(state = initialState, action) {
         user: action.payload
       };
     default:
+      console.log("Hit the default in authReducer.");
       return state;
   }
 }

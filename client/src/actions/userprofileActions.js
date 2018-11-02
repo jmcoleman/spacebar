@@ -1,8 +1,8 @@
 import axios from "axios";
 
 import {
-  GET_USER_PROFILE,
   USER_PROFILE_LOADING,
+  GET_USER_PROFILE,
   CLEAR_CURRENT_USER_PROFILE,
   GET_ERRORS
 } from "./types";
@@ -38,6 +38,19 @@ export const createUserProfile = (profileData, history) => dispatch => {
       })
     );
 };
+
+// Update User Profile
+// export const updateUserProfile = (profileData, history) => dispatch => {
+//   axios
+//     .post("/api/profile", profileData)
+//     .then(res => history.push("/home"))
+//     .catch(err =>
+//       dispatch({
+//         type: GET_ERRORS,
+//         payload: err.response.data
+//       })
+//     );
+// };
 
 // User Profile loading
 export const setUserProfileLoading = () => {

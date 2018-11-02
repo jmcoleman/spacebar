@@ -17,13 +17,14 @@ import Register from "./components/pages/Register";
 
 //other tests
 import EditArticle from "./components/articles/EditArticle";
-import EditUser from "./components/users/EditUser";
+// import EditUserProfile from "./components/profiles/EditUserProfile";
+import EditProfile from "./components/profiles/EditUserProfile";
 
 // pages
 import Landing from "./components/pages/Landing";
 import About from "./components/pages/About";
 import Home from "./components/pages/Home";
-import Content from "./components/pages/Content";
+// import Content from "./components/pages/Content";
 import NotFound from "./components/pages/NotFound";
 
 // action
@@ -94,7 +95,7 @@ class App extends Component {
                 {/* <Route exact path="/logout" component={Login} /> */}
                 <Route exact path="/register" component={Register} />
 
-                <Route exact path="/api/profile" component={Content} />
+                <Route exact path="/api/profile" component={EditProfile} />
 
                 <Route exact path="/about" component={About} />
                 {/* <Route exact path="/api/users/edit/:id" component={EditUser} />
