@@ -1,21 +1,26 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import Wrapper from "../../layout/Wrapper";
-import Articles from '../../articles/Articles';
+// import Wrapper from "../../layout/Wrapper";
+// import Articles from '../../articles/Articles';
+
+import User from "../../users/User";
 
 import "./Content.css";
 
 class Content extends Component {
-
   render() {
     return (
       <section className="content-section">
         CONTENT PAGE
-        <Wrapper>
+        {/* <Wrapper>
           <Articles></Articles>
-        </Wrapper>
+        </Wrapper> */}
+        {/* Users */}
+        <div id="content-div" className="">
+          <User />
+        </div>
       </section>
-    )
+    );
   }
 }
 

@@ -1,63 +1,96 @@
-import React, { Component } from 'react'
-import UsernameForm from './UsernameForm'
-import ChatScreen from './ChatScreen'
-// import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import UsernameForm from "./UsernameForm";
+import ChatScreen from "./ChatScreen";
+import { addChatUser } from "../../actions/chatappActions";
+
+import axios from "axios";
 
 class ChatApp extends Component {
   constructor() {
-    super()
+    super();
     this.state = {
-      currentUsername: '',
-      currentScreen: 'WhatIsYourUsernameScreen',
-    }
-    this.onUsernameSubmitted = this.onUsernameSubmitted.bind(this)
-    // this.onIsValidChatUser = this.onIsValidChatUser.bind(this)
+      currentUsername: "",
+      currentScreen: "WhatIsYourUsernameScreen"
+    };
   }
 
-  onUsernameSubmitted(username) {
+  onUsernameSubmitted = username => {
     console.log("OnUserNameSubmitted: " + username);
 
-    fetch('/chat/users', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ username }),
-    })
-      .then(response => {
+    // this.props.addChatUser(username);
+
+    axios
+      .post("/chat/users", username, {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(res => {
         this.setState({
           currentUsername: username,
-          currentScreen: 'ChatScreen',
-        })
-      })
-      .catch(error => console.error('error', error))
-  }
+          currentScreen: "ChatScreen"
+        });
 
-  onIsValidChatUser(username) {
+        // dispatch({
+        //   type: ADD_CHAT_USER,
+        //   payload: res.data
+        // });
+      })
+      .catch(err => {
+        console.error("error", err);
+        // dispatch({
+        //   type: GET_ERRORS,
+        //   payload: err.response.data
+        // });
+      });
+
+    /////////////////////
+
+    // fetch("/chat/users", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   },
+    //   body: JSON.stringify({ username })
+    // })
+    //   .then(response => {
+    //     this.setState({
+    //       currentUsername: username,
+    //       currentScreen: "ChatScreen"
+    //     });
+    //   })
+    //   .catch(error => console.error("error", error));
+  };
+
+  onIsValidChatUser = username => {
     console.log("onIsValidChatUser: " + username);
 
-    fetch('/chat/users', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ username }),
-    })
-      .then(response => {
-        this.setState({
-          currentUsername: username,
-          currentScreen: 'ChatScreen',
-        })
-      })
-      .catch(error => console.error('error', error))
-  }
+    this.props.addChatUser(username);
+
+    // fetch("/chat/users", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   },
+    //   body: JSON.stringify({ username })
+    // })
+    //   .then(response => {
+    //     this.setState({
+    //       currentUsername: username,
+    //       currentScreen: "ChatScreen"
+    //     });
+    //   })
+    //   .catch(error => console.error("error", error));
+  };
 
   render() {
-    if (this.state.currentScreen === 'WhatIsYourUsernameScreen') {
-      return <UsernameForm onSubmit={this.onUsernameSubmitted} />
+    if (this.state.currentScreen === "WhatIsYourUsernameScreen") {
+      return <UsernameForm onSubmit={this.onUsernameSubmitted} />;
     }
-    if (this.state.currentScreen === 'ChatScreen') {
-      return <ChatScreen currentUsername={this.state.currentUsername} />
+    if (this.state.currentScreen === "ChatScreen") {
+      return <ChatScreen currentUsername={this.state.currentUsername} />;
     }
 
     ///////////////////////////////////////////////////////////////////////
@@ -68,15 +101,23 @@ class ChatApp extends Component {
     // } else {
     //   return <UsernameForm onSubmit={this.onUsernameSubmitted} />
     // }
-
   }
 }
 
-// const mapStateToProps = state => {
-//   return {
-//     loggedInUser: state.loggedInUser
-//   };
-// }
+ChatApp.propTypes = {
+  addChatUser: PropTypes.func.isRequired
+};
 
-export default ChatApp
-// export default connect(mapStateToProps,{}, null, )(ChatApp);
+const mapStateToProps = state => {
+  return {
+    // loggedInUser: state.loggedInUser,
+    errors: state.errors
+  };
+};
+
+// export default ChatApp;
+export default connect(
+  mapStateToProps,
+  { addChatUser },
+  null
+)(ChatApp);

@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import TextInputGroup from '../layout/TextInputGroup';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { addArticle } from '../../actions/articleActions';
+import React, { Component } from "react";
+import TextInputGroup from "../layout/TextInputGroup";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { addArticle } from "../../actions/articleActions";
 
 class AddArticle extends Component {
   state = {
-    name: '',
-    email: '',
-    phone: '',
+    name: "",
+    email: "",
+    phone: "",
     errors: {}
   };
 
@@ -18,18 +18,18 @@ class AddArticle extends Component {
     const { name, email, phone } = this.state;
 
     // Check For Errors
-    if (name === '') {
-      this.setState({ errors: { name: 'Name is required' } });
+    if (name === "") {
+      this.setState({ errors: { name: "Name is required" } });
       return;
     }
 
-    if (email === '') {
-      this.setState({ errors: { email: 'Email is required' } });
+    if (email === "") {
+      this.setState({ errors: { email: "Email is required" } });
       return;
     }
 
-    if (phone === '') {
-      this.setState({ errors: { phone: 'Phone is required' } });
+    if (phone === "") {
+      this.setState({ errors: { phone: "Phone is required" } });
       return;
     }
 
@@ -43,13 +43,14 @@ class AddArticle extends Component {
 
     // Clear State
     this.setState({
-      name: '',
-      email: '',
-      phone: '',
+      name: "",
+      email: "",
+      phone: "",
       errors: {}
     });
 
-    this.props.history.push('/');
+    // changed from / jmc
+    this.props.history.push("/home");
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });

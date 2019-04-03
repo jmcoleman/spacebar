@@ -1,32 +1,28 @@
-import {
-    GET_CHAT_USER
-  } from './types';
-//   import axios from 'axios';
-  
-  export const addChatUser = userName => async dispatch => {
-    // const res = await axios.post(
-    //   '/chat/users',
-    //   userName
-    // );
+import { ADD_CHAT_USER, GET_ERRORS } from "./types";
+import axios from "axios";
 
-    const res = await fetch('/chat/users', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ userName }),
-      })
-    .then(response => {
-        this.setState({
-        currentUsername: userName,
-        currentScreen: 'ChatScreen',
-        })
+export const addChatUser = userName => async dispatch => {
+  axios
+    .post("/chat/users", userName, {
+      headers: {
+        "Content-Type": "application/json"
+      }
     })
-    .catch(error => console.error('error', error))
+    .then(res => {
+      this.setState({
+        currentUsername: userName,
+        currentScreen: "ChatScreen"
+      });
 
-
-    dispatch({
-      type: GET_CHAT_USER,
-      payload: res.data
+      dispatch({
+        type: ADD_CHAT_USER,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
     });
-  };
+};

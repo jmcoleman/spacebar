@@ -1,10 +1,9 @@
-#main-nav {
+/* #main-nav {
     width: 100%;
     font-size: 1.75rem;
     background-color: black;
     color: rgb(110, 168, 226);
     border: solid, 1px;
-    /* position:fixed;     */
 }
 
 #logout {
@@ -13,4 +12,13 @@
 
 #about {
     margin-left: 800px
+} */
+
+#main-nav {
+    width: 100%;
+    border: solid, 1px;
+}
+
+#main-nav .vl {
+    border-left: 1px solid;
 }

@@ -1,24 +1,32 @@
-import React, { Component } from 'react';
-import TextInputGroup from '../layout/TextInputGroup';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { getArticle, updateArticle } from '../../actions/articleActions';
-import moment from 'moment';
+import React, { Component } from "react";
+import TextInputGroup from "../layout/TextInputGroup";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { getArticle, updateArticle } from "../../actions/articleActions";
+import moment from "moment";
 
 class EditArticle extends Component {
   state = {
-    _id: '',
-    title: '',
-    author: '',
-    summary: '',
-    date: '',
-    url: '',
+    _id: "",
+    title: "",
+    author: "",
+    summary: "",
+    date: "",
+    url: "",
     comments: [],
     errors: {}
   };
 
   componentWillReceiveProps(nextProps, nextState) {
-    const { _id, title, author, summary, date, url, comments } = nextProps.article;
+    const {
+      _id,
+      title,
+      author,
+      summary,
+      date,
+      url,
+      comments
+    } = nextProps.article;
     this.setState({
       _id,
       title,
@@ -41,33 +49,33 @@ class EditArticle extends Component {
     const { _id, title, author, summary, date, url, comments } = this.state;
 
     // Check For Errors
-    if (_id === '') {
-      this.setState({ errors: { _id: '_id is required' } });
+    if (_id === "") {
+      this.setState({ errors: { _id: "_id is required" } });
       return;
     }
 
-    if (title === '') {
-      this.setState({ errors: { title: 'Title is required' } });
+    if (title === "") {
+      this.setState({ errors: { title: "Title is required" } });
       return;
     }
 
-    if (author === '') {
-      this.setState({ errors: { author: 'Author is required' } });
+    if (author === "") {
+      this.setState({ errors: { author: "Author is required" } });
       return;
     }
 
-    if (summary === '') {
-      this.setState({ errors: { summary: 'Summary is required' } });
+    if (summary === "") {
+      this.setState({ errors: { summary: "Summary is required" } });
       return;
     }
 
-    if (date === '') {
-      this.setState({ errors: { date: 'Date is required' } });
+    if (date === "") {
+      this.setState({ errors: { date: "Date is required" } });
       return;
     }
 
-    if (url === '') {
-      this.setState({ errors: { url: 'Url is required' } });
+    if (url === "") {
+      this.setState({ errors: { url: "Url is required" } });
       return;
     }
 
@@ -87,23 +95,24 @@ class EditArticle extends Component {
 
     // Clear State
     this.setState({
-      _id: '',
-      title: '',
-      author: '',
-      summary: '',
-      date: '0001-01-01T00:00:00',
-      url: '',
+      _id: "",
+      title: "",
+      author: "",
+      summary: "",
+      date: "0001-01-01T00:00:00",
+      url: "",
       comments: [],
       errors: {}
     });
 
-    this.props.history.push('/');
+    // changed from / jmc
+    this.props.history.push("/home");
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
   // return in utc to convert the date from the offset provided to UTC
-  formatDate = (date) => moment.utc(date).format('MM/DD/YYYY');
+  formatDate = date => moment.utc(date).format("MM/DD/YYYY");
 
   render() {
     const { _id, title, author, summary, date, url, errors } = this.state;
@@ -115,8 +124,8 @@ class EditArticle extends Component {
         <div className="card-header display-4">Edit Article</div>
         <div className="card-body">
           <form onSubmit={this.onSubmit}>
-          {/* type='hidden' */}
-          {/* <TextInputGroup
+            {/* type='hidden' */}
+            {/* <TextInputGroup
               label="_Id"
               name="_id"
               placeholder="Enter _Id"
