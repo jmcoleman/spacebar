@@ -4,9 +4,10 @@ var router = express.Router();
 // =============================================================
 // Routes
 // =============================================================
-require("../public/assets/routes/general-routes.js")(router);
-require("../public/assets/routes/article-api-routes.js")(router);
-require("../public/assets/routes/user-routes.js")(router);
-require("../public/assets/routes/chatkit-routes.js")(router);
+require("../routes/api/general-routes.js")(router);
+require("../routes/api/article-routes.js")(router);
+require("../routes/api/user-auth-routes.js")(router);
+require("../routes/api/user-profile-routes.js")(router);
+require("../routes/api/chatkit-routes.js")(router);
 
 module.exports = router;

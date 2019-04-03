@@ -1,15 +1,20 @@
 /******************/
 /* Overall site   */
 /******************/
-html,body {
+html,
+body {
   background-color: white;
   color: black;
 }
 
 body {
   /* font-family: 'Raleway', sans-serif; */
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   /* font-family: 'Ubuntu', sans-serif; */
+}
+
+p {
+  font-size: 1rem;
 }
 
 .site {
@@ -27,7 +32,7 @@ body {
 }
 
 .app-display-4 {
-  font-size: 2.0rem;
+  font-size: 2rem;
   font-weight: 300;
   line-height: 1.2;
 }
@@ -40,13 +45,13 @@ body {
   display: grid;
   grid-gap: 30px;
 
-  grid-template-columns: minmax(auto, 33%) minmax(auto,33%) minmax(auto,33%);
-  grid-template-rows: minmax(auto, 510px) minmax(auto,auto); 
+  grid-template-columns: minmax(auto, 33%) minmax(auto, 33%) minmax(auto, 33%);
+  grid-template-rows: minmax(auto, 510px) minmax(auto, auto);
   /* grid-template-rows: minmax(auto, auto) minmax(auto,auto);  */
 
-  grid-template-areas: 
+  grid-template-areas:
     "a a b"
-    "c d b"; 
+    "c d b";
 }
 
 #home-page .box {
@@ -70,17 +75,6 @@ body {
 #home-page .d {
   grid-area: d;
 }
-      
-/******************/
-/* Not Found Page */
-/******************/
-#not-found-page {
-  font-family: 'Poppins', sans-serif; 
-}
-
-#not-found-page p {
-  font-family: 'Raleway', sans-serif; 
-}
 
 /******************/
 /* Home page      */
@@ -95,20 +89,71 @@ body {
   /* top: 20%; */
 }
 
+#home-page * p {
+  font-size: 14px;
+}
+
+/******************/
+/* Landing Page */
+/******************/
+.landing {
+  position: relative;
+  background: url("./images/showcase2.jpg") no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  /* margin-top: -24px;
+  margin-bottom: -50px; */
+  margin-top: -60px;
+  margin-bottom: -40px;
+}
+
+.landing-inner {
+  padding-top: 80px;
+}
+
+.dark-overlay {
+  background-color: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#landing-banner-row {
+  margin-top: 70px;
+}
+
+#landing-banner-row p {
+  font-size: 1.75rem;
+}
+
+/******************/
+/* Not Found Page */
+/******************/
+#not-found-page {
+  font-family: "Poppins", sans-serif;
+}
+
+#not-found-page p {
+  font-family: "Raleway", sans-serif;
+}
+
 /*******************/
 /* App Color Theme */
 /*******************/
 
 /* black */
 .app-color-black {
-  color:#000;
+  color: #000;
 }
 .app-bg-color-black {
-  background-color:#000;
+  background-color: #000;
 }
 .app-border-color-black {
   border: 1px solid;
-  border-color:#000;
+  border-color: #000;
 }
 
 /*********/
@@ -116,28 +161,28 @@ body {
 /* snow  */
 /*********/
 .app-color-white {
-  color:#f9f9f9;
+  color: #f9f9f9;
 }
 .app-bg-color-white {
-  background-color:#f9f9f9;
+  background-color: #f9f9f9;
 }
 .app-border-color-white {
   border: 1px solid;
-  border-color:#f9f9f9;
+  border-color: #f9f9f9;
 }
 
 /**********************/
 /* danger color (red) */
 /**********************/
 .app-color-danger {
-  color: #D72638; 
+  color: #d72638;
 }
 .app-bg-color-danger {
-  background-color: #D72638;
+  background-color: #d72638;
 }
 .app-border-color-danger {
   border: 1px solid;
-  border-color:#D72638;
+  border-color: #d72638;
 }
 
 /*************************/
@@ -145,28 +190,28 @@ body {
 /* ADC698                */
 /*************************/
 .app-color-success {
-  color: #0DAB76;
+  color: #0dab76;
 }
 .app-bg-color-success {
-  background-color: #0DAB76;
+  background-color: #0dab76;
 }
 .app-border-color-success {
   border: 1px solid;
-  border-color:#0DAB76;
+  border-color: #0dab76;
 }
 
 /******************/
 /* primary color */
 /******************/
 .app-color-primary {
-  color: #054A91;
+  color: #054a91;
 }
 .app-bg-color-primary {
-  background-color: #054A91;
+  background-color: #054a91;
 }
 .app-border-color-primary {
   border: 1px solid;
-  border-color: #054A91;
+  border-color: #054a91;
 }
 
 /****************/
@@ -174,14 +219,14 @@ body {
 /* vl           */
 /****************/
 .app-color-1 {
-  color:#EEF1EF;
+  color: #eef1ef;
 }
 .app-bg-color-1 {
-  background-color:#EEF1EF;
+  background-color: #eef1ef;
 }
 .app-border-color-1 {
   border: 1px solid;
-  border-color:#EEF1EF;
+  border-color: #eef1ef;
 }
 
 /****************/
@@ -189,14 +234,14 @@ body {
 /* sea blue     */
 /****************/
 .app-color-seablue {
-  color: #05668D;
+  color: #05668d;
 }
 .app-bg-color-seablue {
-  background-color: #05668D;
+  background-color: #05668d;
 }
 .app-border-color-seablue {
   border: 1px solid;
-  border-color:#05668D;
+  border-color: #05668d;
 }
 
 /****************/
@@ -204,43 +249,43 @@ body {
 /* orange       */
 /****************/
 .app-color-orange {
-  color: #DE9151;
+  color: #de9151;
 }
 .app-bg-color-orange {
-  background-color: #DE9151;
+  background-color: #de9151;
 }
 .app-border-color-orange {
   border: 1px solid;
-  border-color:#DE9151;
+  border-color: #de9151;
 }
 
 /****************/
 /* dark gray    */
 /****************/
 .app-color-darkgray {
-  color: #595757;    
+  color: #595757;
 }
 .app-bg-color-darkgray {
   background-color: #595757;
 }
 .app-border-color-darkgray {
   border: 1px solid;
-  border-color:#595757;
+  border-color: #595757 !important;
 }
 
 /****************/
 /* all buttons */
 /****************/
 .app-btn-primary {
-  color: #054A91;
+  color: #054a91;
 }
 
 .app-btn-bg-primary {
-  background-color:#054A91;  
+  background-color: #054a91;
 }
 
 .app-btn-border-primary {
-  border: 1px solid #054A91;  
+  border: 1px solid #054a91;
 }
 
 button.btn.app-btn-primary {
@@ -252,66 +297,57 @@ button.btn.app-btn-primary {
 }
 
 .app-btn-bg-white {
-  background-color:#fff;  
+  background-color: #fff;
 }
 
 .app-btn-border-white {
-  border: 1px solid #fff;  
+  border: 1px solid #fff;
 }
 
 button.btn:focus,
 a:focus,
 *:focus {
   outline: none !important;
-	-webkit-box-shadow: none !important;
-	-moz-box-shadow: none !important;
-	box-shadow: none !important;
-}
-
-p {
-  font-size: 14px;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
 }
 
 /**************************/
 /* main-nav a and buttons */
 /**************************/
 #main-nav * a,
-#main-nav * button, 
-#main-nav * .vl 
-{
+#main-nav * button,
+#main-nav * .vl {
   background-color: black;
   color: white;
-  filter: opacity(.8);
+  filter: opacity(0.8);
 }
 
 #main-nav #brand:hover {
   color: white;
-  filter: opacity(1.0);
+  filter: opacity(1);
 }
 
 #main-nav * a:hover {
   color: white;
-  filter: opacity(1.0);
+  filter: opacity(1);
 }
 
 /***************************/
 /* home page a and buttons */
 /***************************/
-#home-page * a
-#home-page * button, 
-#article-detail-section * a.card-btn
-#article-detail-section * button.card-btn, 
-{
-  background-color: #3F88C5;  
+#home-page * a #home-page * button,
+#article-detail-section * a.card-btn #article-detail-section * button.card-btn {
+  background-color: #3f88c5;
 }
 
 #home-page * a:hover,
-#home-page * button:hover, 
+#home-page * button:hover,
 #article-detail-section * a:hover,
-#article-detail-section * button:hover
-{
-  background-color: #054A91;
-  border-color: 1px solid #054A91;
+#article-detail-section * button:hover {
+  background-color: #054a91;
+  border-color: 1px solid #054a91;
   color: white;
   outline: none;
 }
@@ -325,17 +361,26 @@ p {
 #registration-page * button:hover,
 .edit-page * a:hover,
 .edit-page * button:hover,
-.edit-page * input[type="submit"]:hover
-{
-  background-color: #054A91;
-  border-color: 1px solid #054A91;
+.edit-page * input[type="submit"]:hover {
+  background-color: #054a91;
+  border-color: 1px solid #054a91;
   color: white;
   outline: none;
 }
 
-.list-group-item { 
-  overflow: hidden; 
+.list-group-item {
+  overflow: hidden;
   /* overflow-y: auto; */
-  text-overflow: ellipsis; 
+  text-overflow: ellipsis;
   /* white-space: nowrap; */
+}
+
+/*****************************/
+/* landing pages buttons     */
+/*****************************/
+#landing-page * #btn-signup:hover {
+  background-color: white;
+  border-color: 1px solid #054a91;
+  color: #054a91 !important;
+  outline: none;
 }
